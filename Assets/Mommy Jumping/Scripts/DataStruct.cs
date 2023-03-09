@@ -8,6 +8,13 @@ public enum GameState
     Playing,
     Gameover
 }
+public enum GameMode
+{
+    None,
+    Easy,
+    Hard,
+    Normal
+}
 
 public enum GameTag
 {
@@ -15,7 +22,8 @@ public enum GameTag
     Player,
     LeftCorner,
     RightCorner,
-    Collectable
+    Collectable,
+    GroundCheck
 }
 
 public enum PrefKey

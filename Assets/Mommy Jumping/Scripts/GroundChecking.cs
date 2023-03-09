@@ -11,6 +11,13 @@ public class GroundChecking : MonoBehaviour
         var platformLanded = collision.gameObject.GetComponent<Platform>();
         if(!GameManager.Ins || !GameManager.Ins.player || !platformLanded) return;
 
+        if (platformLanded is StaticPlatform)
+        {
+            StaticPlatform staticPlatform = (StaticPlatform)platformLanded;
+            staticPlatform.CurrentJump++;
+        }
+
+
         GameManager.Ins.player.PlatformLanded = platformLanded;
         GameManager.Ins.player.Jump();
 

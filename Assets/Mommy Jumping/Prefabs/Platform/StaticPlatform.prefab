@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6727191487938376964}
   - component: {fileID: 8558741708708916354}
   - component: {fileID: 7276350877242028572}
-  - component: {fileID: -5776007887332731459}
   - component: {fileID: 3914325605075096195}
+  - component: {fileID: 4699067147763308351}
   m_Layer: 7
   m_Name: StaticPlatform
   m_TagString: Platform
@@ -103,19 +103,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &-5776007887332731459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664784382006892032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ac72c5b9233c9046b89e261d72a4232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cSpawnPoint: {fileID: 1498731111060562299}
 --- !u!212 &3914325605075096195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -168,6 +155,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4699067147763308351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664784382006892032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3eeffe2035db0439fdd282b678674b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cSpawnPoint: {fileID: 1498731111060562299}
+  limitJump: 5
 --- !u!1 &4321791458580122680
 GameObject:
   m_ObjectHideFlags: 0

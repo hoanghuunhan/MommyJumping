@@ -12,7 +12,8 @@ public class Collectable : MonoBehaviour
     {
         if (explosionEffPb)
         {
-            Instantiate(explosionEffPb, transform.position, Quaternion.identity);
+            var fxExplosion = Instantiate(explosionEffPb, transform.position, Quaternion.identity);
+            Destroy(fxExplosion,1f);
         }
         Destroy(gameObject);
 

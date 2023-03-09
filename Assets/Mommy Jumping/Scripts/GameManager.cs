@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public GameState state;
     public Player player;
+    public PlayerInfo currentPlayerMode;
     public int startingPlatform;
     public float xSpawnOffset;
     public float minYspawnPos;
@@ -14,8 +15,15 @@ public class GameManager : Singleton<GameManager>
     public CollecableItem[] collecableItems;
     private Platform m_lastPlatformSpawned;
     private List<int> m_platformLandedIds;
+    public List<PlayerInfo> listGameMode;
     private float m_halfCamSizeX;
     private int m_score;
+    private const int EASY_SCORE = 100;
+    private const int NORMAL_SCORE = 200;
+    private const int HARD_SCORE = 300;
+
+    
+    Dictionary<GameMode, PlayerInfo> dictGameMode;
 
     public Platform LastPlatformSpawned { get => m_lastPlatformSpawned; set => m_lastPlatformSpawned = value; }
     public List<int> PlatformLandedIds { get => m_platformLandedIds; set => m_platformLandedIds = value; }
@@ -26,6 +34,14 @@ public class GameManager : Singleton<GameManager>
         MakeSingleton(false);
         m_platformLandedIds = new List<int>();
         m_halfCamSizeX = Helper.Get2DCamSize().x / 2;
+
+        dictGameMode = new Dictionary<GameMode, PlayerInfo>();
+        foreach (var item in listGameMode)
+        {
+            dictGameMode.Add(item.gameMode, item);
+        }
+
+        currentPlayerMode = dictGameMode[GameMode.None];
     }
 
     public override void Start()
@@ -33,7 +49,7 @@ public class GameManager : Singleton<GameManager>
         base.Start();
         state = GameState.Starting;
         Invoke("PlatformInit", 0.5f);
-
+        
         if (AudioController.Ins)
         {
             AudioController.Ins.PlayBackgroundMusic();
@@ -85,6 +101,11 @@ public class GameManager : Singleton<GameManager>
 
         int randIdx = Random.Range(0, platformPrefabs.Length);
         var platformPrefab = platformPrefabs[randIdx];
+        if (state == GameState.Starting)
+        {
+            platformPrefab = platformPrefabs[0];
+        }
+        
         if(!platformPrefab) return;
 
         var platformClone = Instantiate(platformPrefab, spawnPos, Quaternion.identity);
@@ -112,6 +133,19 @@ public class GameManager : Singleton<GameManager>
         if (state != GameState.Playing) return;
 
         m_score += scoreToAdd;
+        if (m_score >= EASY_SCORE && m_score < NORMAL_SCORE)
+        {
+            currentPlayerMode = dictGameMode[GameMode.Easy];
+        }
+        else if (m_score >= NORMAL_SCORE && m_score < HARD_SCORE)
+        {
+            currentPlayerMode = dictGameMode[GameMode.Normal];
+        } 
+        else if(m_score >= HARD_SCORE) 
+        {
+            currentPlayerMode = dictGameMode[GameMode.Hard];
+        }
+
         Pref.bestScore = m_score;
         if (GUIManager.Ins)
         {
